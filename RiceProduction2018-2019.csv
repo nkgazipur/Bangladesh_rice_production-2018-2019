@@ -2,7 +2,7 @@ District,Variety,Area,Yield,Production
 Bagerhat,Aus,4722,2.467,11650
 Bandarban,Aus,12747,1.857,23672
 Barguna,Aus,53328,2.298,122564
-Barishal,Aus,21770,1.757,38239
+Barisal,Aus,21770,1.757,38239
 Bhola,Aus,84740,2.031,172102
 Bogra,Aus,20232,2.836,57385
 Brahamanbaria,Aus,8624,2.434,20992
@@ -66,7 +66,7 @@ Thakurgaon,Aus,15111,2.926,44214
 Bagerhat,Aman,69132,1.69,116802
 Bandarban,Aman,9826,2.667,26210
 Barguna,Aman,81749,1.927,157492
-Barishal,Aman,122065,1.71,208723
+Barisal,Aman,122065,1.71,208723
 Bhola,Aman,174258,2.43,423522
 Bogra,Aman,175577,2.665,467997
 Brahamanbaria,Aman,53872,2.472,133161
@@ -130,7 +130,7 @@ Thakurgaon,Aman,134405,2.866,385230
 Bagerhat,Boro,56100,4.581,256997
 Bandarban,Boro,6223.95,3.897,24253.34
 Barguna,Boro,1314.39,2.999,3941.489
-Barishal,Boro,50803.7,3.84,195100.6
+Barisal,Boro,50803.7,3.84,195100.6
 Bhola,Boro,41369,3.892,161002.8
 Bogra,Boro,185915,3.817,709612
 Brahamanbaria,Boro,111308,4.234,471297.9
