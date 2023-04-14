@@ -9,7 +9,7 @@ const riceProductionUrl =
 
 const width = window.innerWidth;
 const height = window.innerHeight;
-const margin = { left: 60, right: 20, top: 20, bottom: 20 };
+const margin = { left: 10, right: 10, top: 10, bottom: 10 };
 const legendWidth = 150;
 const legendHeight = 40;
 const varieties = [
@@ -198,7 +198,6 @@ const drawCircle = (
   const yieldMap = new Map(
     districts.map((d) => [d, findAvgYield(riceData, d)])
   );
-  console.log(season);
 
   const colorScale = d3
     .scaleLinear()
@@ -273,9 +272,10 @@ const drawCircle = (
   const legendDef = legendGroup.selectAll("def").data([null]).join("def");
 
   const legend = legendDef
-    .selectAll("#color-legend")
+    .selectAll(".color-legend")
     .data([null])
     .join("linearGradient")
+    .attr("class", "color-legend")
     .attr("id", "color-legend");
 
   legend
@@ -322,12 +322,21 @@ const drawCircle = (
     .text(season);
 };
 
+const simplify = (geo, val) => {
+  let simplified = topojson.presimplify(geo);
+  let min_weight = topojson.quantile(simplified, val);
+  //Every arc coordinate whose z-value is lower than min_weight is removed
+  return topojson.simplify(simplified, min_weight);
+};
+
 const main = async () => {
   const topoData = await d3.json(bangladeshTopoUrl);
 
+  const simplifiedTopo = simplify(topoData, 0.2);
+
   const geoData = topojson.feature(
-    topoData,
-    topoData.objects.bangladesh_geojson_adm2_64_districts_zillas
+    simplifiedTopo,
+    simplifiedTopo.objects.bangladesh_geojson_adm2_64_districts_zillas
   );
 
   const districtData = await d3.json(districtUrl);
