@@ -180,7 +180,7 @@ const findAvgYield = (riceData, district) => {
   return sum / filteredData.length;
 };
 
-const drawCircle = (
+const drawMap = (
   geoData,
   districtData,
   projection,
@@ -269,14 +269,15 @@ const drawCircle = (
       })`
     );
 
-  const legendDef = legendGroup.selectAll("def").data([null]).join("def");
+  const legendDef = legendGroup.selectAll("defs").data([null]).join("defs");
+
+  const linearGradientId = "color-legend-test";
 
   const legend = legendDef
-    .selectAll(".color-legend")
+    .selectAll("linearGradient")
     .data([null])
     .join("linearGradient")
-    .attr("class", "color-legend")
-    .attr("id", "color-legend");
+    .attr("id", linearGradientId);
 
   legend
     .selectAll("stop")
@@ -286,12 +287,13 @@ const drawCircle = (
     .attr("offset", (d, i) => `${i * 100}%`);
 
   legendGroup
-    .selectAll("rect")
+    .selectAll(".legend-rect")
     .data([null])
     .join("rect")
+    .attr("class", "legend-rect")
     .attr("width", legendWidth)
     .attr("height", legendHeight)
-    .attr("fill", "url(#color-legend)");
+    .attr("fill", `url(#${linearGradientId})`);
 
   legendGroup
     .selectAll("line")
@@ -371,7 +373,7 @@ const main = async () => {
     autocomplete: true,
     width: "300px",
     onload: () => {
-      drawCircle(
+      drawMap(
         geoData,
         districtData,
         projection,
@@ -383,7 +385,7 @@ const main = async () => {
     },
     onchange: (d, e) => {
       if (d.value === "Full Year") {
-        drawCircle(
+        drawMap(
           geoData,
           districtData,
           projection,
@@ -393,7 +395,7 @@ const main = async () => {
           e.getText()
         );
       } else {
-        drawCircle(
+        drawMap(
           geoData,
           districtData,
           projection,
