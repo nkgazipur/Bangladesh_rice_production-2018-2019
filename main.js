@@ -264,7 +264,7 @@ const drawMap = (
     .attr("class", "legend-group")
     .attr(
       "transform",
-      `translate(${(width - margin.left - margin.right) / 2}, ${
+      `translate(${(width - margin.left - margin.right) / 2 + 20}, ${
         margin.top + 150
       })`
     );
