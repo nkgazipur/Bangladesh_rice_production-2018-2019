@@ -10,8 +10,8 @@ const riceProductionUrl =
 const width = window.innerWidth;
 const height = window.innerHeight;
 const margin = { left: 10, right: 10, top: 10, bottom: 10 };
-const legendWidth = 150;
-const legendHeight = 40;
+const legendWidth = 120;
+const legendHeight = 30;
 const varieties = [
   { value: "Full Year", text: "Full Year" },
   { value: "Aus", text: "Aus (April-July)" },
