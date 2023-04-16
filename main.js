@@ -7,6 +7,27 @@ const districtUrl =
 const riceProductionUrl =
   "https://raw.githubusercontent.com/nkgazipur/Bangladesh_rice_production-2018-2019-/main/RiceProduction2018-2019.csv";
 
+const spinnerOptions = {
+  lines: 13, // The number of lines to draw
+  length: 50, // The length of each line
+  width: 17, // The line thickness
+  radius: 80, // The radius of the inner circle
+  scale: 1, // Scales overall size of the spinner
+  corners: 1, // Corner roundness (0..1)
+  speed: 1, // Rounds per second
+  rotate: 0, // The rotation offset
+  animation: "spinner-line-fade-quick", // The CSS animation name for the lines
+  direction: 1, // 1: clockwise, -1: counterclockwise
+  color: "#ffffff", // CSS color or array of colors
+  fadeColor: "transparent", // CSS color or array of colors
+  top: "50%", // Top position relative to parent
+  left: "50%", // Left position relative to parent
+  shadow: "0 0 1px transparent", // Box-shadow for the lines
+  zIndex: 2000000000, // The z-index (defaults to 2e9)
+  className: "spinner", // The CSS class to assign to the spinner
+  position: "absolute", // Element positioning
+};
+
 const width = window.innerWidth;
 const height = window.innerHeight;
 const margin = { left: 10, right: 10, top: 10, bottom: 10 };
@@ -332,7 +353,18 @@ const simplify = (geo, val) => {
 };
 
 const main = async () => {
+  const spinnerTarget = document.getElementById("spinner");
+  const spinner = new Spinner(spinnerOptions).spin(spinnerTarget);
   const topoData = await d3.json(bangladeshTopoUrl);
+  const districtData = await d3.json(districtUrl);
+  const riceProduction = await d3.csv(riceProductionUrl, (d) => {
+    d.Production = +d.Production;
+    d.Area = +d.Area;
+    d.Yield = +d.Yield;
+    return d;
+  });
+
+  spinner.stop();
 
   const simplifiedTopo = simplify(topoData, 0.2);
 
@@ -340,8 +372,6 @@ const main = async () => {
     simplifiedTopo,
     simplifiedTopo.objects.bangladesh_geojson_adm2_64_districts_zillas
   );
-
-  const districtData = await d3.json(districtUrl);
 
   const projection = d3.geoMercator().fitExtent(
     [
@@ -359,13 +389,6 @@ const main = async () => {
     .attr("height", height);
 
   const mapBound = svg.append("g");
-
-  const riceProduction = await d3.csv(riceProductionUrl, (d) => {
-    d.Production = +d.Production;
-    d.Area = +d.Area;
-    d.Yield = +d.Yield;
-    return d;
-  });
 
   jSuites.dropdown(document.getElementById("dropdown"), {
     data: varieties,
